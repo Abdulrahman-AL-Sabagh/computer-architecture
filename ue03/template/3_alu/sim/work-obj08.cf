@@ -1,11 +1,11 @@
 v 4
-file "/home/vagrant/Desktop/computer-architecture/ue03/template/3_alu/" "tb/testbench.vhd" "d846c9d2fe762bb0d94dad2f86252e1a28733fa6" "20250403032551.355":
-  entity testbench at 1( 0) + 0 on 617;
-  architecture test of testbench at 8( 96) + 0 on 618;
-file "/home/vagrant/Desktop/computer-architecture/ue03/template/3_alu/" "src/alu_ea_struct.vhd" "9070fcdb7c99ee5df7ce5535a6fcf157472324ee" "20250403032551.339":
-  entity alu at 1( 0) + 0 on 611;
-  entity fa at 13( 400) + 0 on 612;
-  architecture struct of fa at 20( 541) + 0 on 613;
-  entity cra_gen at 26( 681) + 0 on 614;
-  architecture struct of cra_gen at 36( 967) + 0 on 615;
-  architecture struct of alu at 54( 1534) + 0 on 616;
+file "/home/vagrant/Desktop/computer-architecture/ue03/template/3_alu/" "tb/testbench.vhd" "d846c9d2fe762bb0d94dad2f86252e1a28733fa6" "20250403034509.575":
+  entity testbench at 1( 0) + 0 on 625;
+  architecture test of testbench at 8( 96) + 0 on 626;
+file "/home/vagrant/Desktop/computer-architecture/ue03/template/3_alu/" "src/alu_ea_struct.vhd" "9070fcdb7c99ee5df7ce5535a6fcf157472324ee" "20250403034509.564":
+  entity alu at 1( 0) + 0 on 619;
+  entity fa at 13( 400) + 0 on 620;
+  architecture struct of fa at 20( 541) + 0 on 621;
+  entity cra_gen at 26( 681) + 0 on 622;
+  architecture struct of cra_gen at 36( 967) + 0 on 623;
+  architecture struct of alu at 54( 1534) + 0 on 624;

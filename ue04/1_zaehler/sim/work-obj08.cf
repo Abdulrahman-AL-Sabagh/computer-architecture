@@ -1,0 +1,10 @@
+v 4
+file "/home/vagrant/Desktop/computer-architecture/ue04/1_zaehler/" "tb/testbench.vhd" "80dde892fadbc18ef8de7a1d18ec84ce3c42229c" "20250409194842.202":
+  entity testbench at 1( 0) + 0 on 15;
+  architecture test of testbench at 9( 138) + 0 on 16;
+file "/home/vagrant/Desktop/computer-architecture/ue04/1_zaehler/" "src/counter_ea_struct.vhd" "2266a06ad5960585d4313520e2f66f953bbf7c7a" "20250409194842.177":
+  entity counter at 1( 0) + 0 on 11;
+  architecture struct of counter at 11( 242) + 0 on 12;
+file "/home/vagrant/Desktop/computer-architecture/ue04/1_zaehler/" "src/ff_ea_bhv.vhd" "8a8b5ce0cf7f903ce77d671d6ac130f48009b460" "20250409194842.177":
+  entity ff at 1( 0) + 0 on 13;
+  architecture bhv of ff at 11( 247) + 0 on 14;
