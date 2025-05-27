@@ -26,8 +26,8 @@ begin
       when "1101111" => controls <= "10110010000100"; -- jal
       when "1110011" => controls <= "0---00--000010"; -- ECALL
       when "1100111" => controls <= "10000010001101"; -- jalr
+      when "0010111" => controls <= "11001000000000"; -- auipc
       when others    => controls <= "--------------"; -- 
-    
     end case;
   end process;
 

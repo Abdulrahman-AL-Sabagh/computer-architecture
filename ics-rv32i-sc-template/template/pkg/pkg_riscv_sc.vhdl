@@ -33,6 +33,7 @@ package pkg_riscv_sc is
   constant EXT_S_TYPE : std_ulogic_vector(IMM_SRC_SIZE-1 downto 0) := "001";
   constant EXT_B_TYPE : std_ulogic_vector(IMM_SRC_SIZE-1 downto 0) := "010";
   constant EXT_J_TYPE : std_ulogic_vector(IMM_SRC_SIZE-1 downto 0) := "011";
+  constant EXT_U_TYPE : std_ulogic_vector(IMM_SRC_SIZE-1 downto 0) := "100";
 
   -- Define array types
   type regs_ram is array (REGS_SIZE-1 downto 0) of std_ulogic_vector(31 downto 0);

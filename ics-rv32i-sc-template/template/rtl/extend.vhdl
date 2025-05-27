@@ -20,7 +20,12 @@ begin
         immext <= (31 downto 12 => instr(31)) & instr(7) & instr(30 downto 25) & instr(11 downto 8) & '0';
       when EXT_J_TYPE =>
         immext <= (31 downto 20 => instr(31)) & instr(19 downto 12) & instr(20) & instr(30 downto 21) & '0';
+      
+      when EXT_U_TYPE => 
+          -- Quelle für dieses sll https://stackoverflow.com/questions/9018087/shift-a-std-logic-vector-of-n-bit-to-right-or-left
+          immext <= ((31 downto  20 => instr(31)) & instr(31 downto 12)) sll 12;
       when others =>
+    
         immext <= (31 downto 0 => 'X');
     end case;
   end process;

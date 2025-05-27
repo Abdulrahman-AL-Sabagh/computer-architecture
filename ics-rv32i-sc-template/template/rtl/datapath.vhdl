@@ -31,6 +31,7 @@ architecture struct of datapath is
 
   component adder
     port(a, b : in  STD_ULOGIC_VECTOR(31 downto 0);
+        eraseLSB: in std_ulogic;  
          y    : out STD_ULOGIC_VECTOR(31 downto 0));
   end component;
 
@@ -86,19 +87,22 @@ architecture struct of datapath is
               ram_dmem      : out dmem_ram);
   end component;
   
-  signal PCNext, PCPlus4, PCTarget,SrcBPc          : STD_ULOGIC_VECTOR(31 downto 0);
+  signal PCNext, PCPlus4, PCTarget,SrcAPc          : STD_ULOGIC_VECTOR(31 downto 0);
   signal ImmExt                             : STD_ULOGIC_VECTOR(31 downto 0);
   signal SrcA, SrcB                         : STD_ULOGIC_VECTOR(31 downto 0);
   signal Result                             : STD_ULOGIC_VECTOR(31 downto 0);
   signal PC, WriteData, ReadData            : STD_ULOGIC_VECTOR(31 downto 0);
   signal ALUResult                          : STD_ULOGIC_VECTOR(31 downto 0);
+  signal isJalR                             : STD_ULOGIC;
 begin
   -- next PC and extend logic
+
+  isJalR <= PcAdderSrcB;
   pcreg       : d_ff    port map(clk, reset, std_logic_vector(TEXT_SEGMENT_START), PCNext, PC);
-  pcadd4      : adder   port map(PC, X"00000004", PCPlus4);
+  pcadd4      : adder   port map(PC, X"00000004",'0' ,PCPlus4);
   --- Mux for jal that decides wheter to add the immediate or RS1 to the new pc
-  pcadderMux  : mux_2 port map(immext, SrcA, PcAdderSrcB, SrcBPc);
-  pcaddbranch : adder   port map(PC, SrcBP, PCTarget);
+  pcadderMux  : mux_2 port map(PC, SrcA, isJalR, SrcAPc);
+  pcaddbranch : adder   port map(SrcAPc, ImmExt, isJalR,PCTarget);
   pcmux       : mux_2   port map(PCPlus4, PCTarget, PCSrc, PCNext);
   ext         : extend  port map(Instr(31 downto 7), ImmSrc, ImmExt);
     
