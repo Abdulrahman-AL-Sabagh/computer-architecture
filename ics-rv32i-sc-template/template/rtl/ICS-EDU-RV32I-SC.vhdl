@@ -102,10 +102,10 @@ architecture struct of ICS_EDU_RV32I_SC is
     port( op              : in  STD_ULOGIC_VECTOR(6 downto 0);
           funct3          : in  STD_ULOGIC_VECTOR(2 downto 0);
           funct7_5        : in  STD_ULOGIC;
-          Zero            : in  STD_ULOGIC;
+          Zero, AluSign            : in  STD_ULOGIC;
           ResultSrc       : out STD_ULOGIC_VECTOR(1 downto 0);
           MemWrite        : out STD_ULOGIC;
-          PCSrc, ALUSrc   : out STD_ULOGIC;
+          PCSrc, ALUSrc, PcAdderSrcB   : out STD_ULOGIC;
           RegWrite        : out STD_ULOGIC;
           ImmSrc          : out STD_ULOGIC_VECTOR(IMM_SRC_SIZE-1 downto 0);
           ALUControl      : out STD_ULOGIC_VECTOR(ALU_CTRL_SIZE-1 downto 0));
@@ -119,21 +119,23 @@ architecture struct of ICS_EDU_RV32I_SC is
               MemWrite        : in  STD_ULOGIC;
               ImmSrc          : in  STD_ULOGIC_VECTOR(IMM_SRC_SIZE-1 downto 0);
               ALUControl      : in  STD_ULOGIC_VECTOR(ALU_CTRL_SIZE-1 downto 0);
-              Zero            : out STD_ULOGIC;
+              PcAdderSrcB     : in STD_ULOGIC;
+              Zero, AluSign            : out STD_ULOGIC;
               Instr           : out STD_ULOGIC_VECTOR(31 downto 0);
+              
               ram_regs        : out regs_ram;
               ram_dmem        : out dmem_ram);
   end component;
     
-  signal ALUSrc, RegWrite, MemWrite, Zero, PCSrc: STD_ULOGIC;
+  signal ALUSrc, RegWrite, MemWrite, Zero ,PCSrc, AluSign: STD_ULOGIC;
   signal Instr                                  : STD_ULOGIC_VECTOR(31 downto 0);
   signal ResultSrc                              : STD_ULOGIC_VECTOR(1 downto 0);
   signal ImmSrc                                 : STD_ULOGIC_VECTOR(IMM_SRC_SIZE-1 downto 0);
   signal ALUControl                             : STD_ULOGIC_VECTOR(ALU_CTRL_SIZE-1 downto 0);
-
+  signal PcAdderMuxEnble                        : STD_ULOGIC;
 begin
 
-  c: control_unit port map(Instr(6 downto 0), Instr(14 downto 12), Instr(30), Zero, ResultSrc, MemWrite, PCSrc, ALUSrc, RegWrite, ImmSrc, ALUControl);
-  dp: datapath generic map (TEXT_SEGMENT, DATA_SEGMENT, REGISTERS) port map(clk, reset, ResultSrc, PCSrc, ALUSrc, RegWrite, MemWrite, ImmSrc, ALUControl, Zero, Instr, ram_regs, ram_dmem);
+  c: control_unit port map(Instr(6 downto 0), Instr(14 downto 12), Instr(30), Zero,AluSign ,ResultSrc, MemWrite, PCSrc, ALUSrc, PcAdderMuxEnble ,RegWrite, ImmSrc, ALUControl);
+  dp: datapath generic map (TEXT_SEGMENT, DATA_SEGMENT, REGISTERS) port map(clk, reset, ResultSrc, PCSrc, ALUSrc, RegWrite, MemWrite, ImmSrc, ALUControl, PcAdderMuxEnble ,Zero, AluSign,Instr, ram_regs, ram_dmem);
 
 end;

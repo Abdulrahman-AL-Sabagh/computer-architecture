@@ -12,9 +12,10 @@ entity datapath is -- RISC-V datapath
             PCSrc, ALUSrc   : in  STD_ULOGIC;
             RegWrite        : in  STD_ULOGIC;
             MemWrite        : in  STD_ULOGIC;
+            PcAdderSrcB     : in STD_ULOGIC;
             ImmSrc          : in  STD_ULOGIC_VECTOR(IMM_SRC_SIZE-1  downto 0);
             ALUControl      : in  STD_ULOGIC_VECTOR(ALU_CTRL_SIZE-1  downto 0);
-            Zero            : out STD_ULOGIC;
+            Zero, AluSign            : out STD_ULOGIC;
             Instr           : out STD_ULOGIC_VECTOR(31 downto 0);
             ram_regs        : out regs_ram;
             ram_dmem        : out dmem_ram);
@@ -65,7 +66,9 @@ architecture struct of datapath is
     port(a, b       : in  STD_ULOGIC_VECTOR(31 downto 0);
          ALUControl : in  STD_ULOGIC_VECTOR(ALU_CTRL_SIZE-1  downto 0);
          ALUResult  : out STD_ULOGIC_VECTOR(31 downto 0);
-         Zero       : out STD_ULOGIC);
+         Zero, ResultSign       : out STD_ULOGIC
+         
+         );
   end component;
 
   component instruction_memory
@@ -82,8 +85,8 @@ architecture struct of datapath is
               RD            : out STD_ULOGIC_VECTOR(31 downto 0);
               ram_dmem      : out dmem_ram);
   end component;
-    
-  signal PCNext, PCPlus4, PCTarget          : STD_ULOGIC_VECTOR(31 downto 0);
+  
+  signal PCNext, PCPlus4, PCTarget,SrcBPc          : STD_ULOGIC_VECTOR(31 downto 0);
   signal ImmExt                             : STD_ULOGIC_VECTOR(31 downto 0);
   signal SrcA, SrcB                         : STD_ULOGIC_VECTOR(31 downto 0);
   signal Result                             : STD_ULOGIC_VECTOR(31 downto 0);
@@ -93,7 +96,9 @@ begin
   -- next PC and extend logic
   pcreg       : d_ff    port map(clk, reset, std_logic_vector(TEXT_SEGMENT_START), PCNext, PC);
   pcadd4      : adder   port map(PC, X"00000004", PCPlus4);
-  pcaddbranch : adder   port map(PC, ImmExt, PCTarget);
+  --- Mux for jal that decides wheter to add the immediate or RS1 to the new pc
+  pcadderMux  : mux_2 port map(immext, SrcA, PcAdderSrcB, SrcBPc);
+  pcaddbranch : adder   port map(PC, SrcBP, PCTarget);
   pcmux       : mux_2   port map(PCPlus4, PCTarget, PCSrc, PCNext);
   ext         : extend  port map(Instr(31 downto 7), ImmSrc, ImmExt);
     
@@ -104,6 +109,6 @@ begin
     
   -- ALU logic
   srcbmux   :  mux_2 port map(WriteData, ImmExt, ALUSrc, SrcB);
-  mainalu   :  alu   port map(SrcA, SrcB,ALUControl, ALUResult, Zero);
+  mainalu   :  alu   port map(SrcA, SrcB,ALUControl, ALUResult, Zero, AluSign);
   resultmux :  mux_3 port map(ALUResult, ReadData, PCPlus4, ResultSrc, Result);
 end;

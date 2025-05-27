@@ -42,7 +42,7 @@ begin
       ram_regs <= init_regs_ram;
     else
       if rising_edge(clk) then
-        if WE3='1' then ram_regs(to_integer(unsigned(A3))) <= WD3;
+        if WE3='1' and A3 /= "00000" then ram_regs(to_integer(unsigned(A3))) <= WD3;
         end if;
       end if;
     end if;
