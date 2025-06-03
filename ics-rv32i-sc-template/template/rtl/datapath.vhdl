@@ -8,6 +8,7 @@ entity datapath is -- RISC-V datapath
             DATA_SEGMENT    : string; 
             REGISTERS       : string);
   port    ( clk, reset      : in  STD_ULOGIC; 
+            allowCustomWrite : in STD_ULOGIC;
             ResultSrc       : in  STD_ULOGIC_VECTOR(1  downto 0);
             PCSrc, ALUSrc   : in  STD_ULOGIC;
             RegWrite        : in  STD_ULOGIC;
@@ -50,9 +51,11 @@ architecture struct of datapath is
   component register_file
     generic ( REGISTERS : string);
     port    ( clk, reset: in  STD_ULOGIC;
-              A1, A2, A3: in  STD_ULOGIC_VECTOR(4  downto 0);
+              allowCustomWrite: in STD_ULOGIC;
+              f2        : in STD_ULOGIC_VECTOR(1 downto 0);
+              A1, A2, A3, A4: in  STD_ULOGIC_VECTOR(4  downto 0);
               WE3       : in  STD_ULOGIC;
-              WD3       : in  STD_ULOGIC_VECTOR(31 downto 0);
+              WD3,WD4       : in  STD_ULOGIC_VECTOR(31 downto 0);
               RD1, RD2  : out STD_ULOGIC_VECTOR(31 downto 0);
               ram_regs  : out regs_ram);
   end component;
@@ -67,6 +70,7 @@ architecture struct of datapath is
     port(a, b       : in  STD_ULOGIC_VECTOR(31 downto 0);
          ALUControl : in  STD_ULOGIC_VECTOR(ALU_CTRL_SIZE-1  downto 0);
          ALUResult  : out STD_ULOGIC_VECTOR(31 downto 0);
+         minResult  : out STD_ULOGIC_VECTOR(31 downto 0);
          Zero, ResultSign       : out STD_ULOGIC
          
          );
@@ -93,6 +97,7 @@ architecture struct of datapath is
   signal Result                             : STD_ULOGIC_VECTOR(31 downto 0);
   signal PC, WriteData, ReadData            : STD_ULOGIC_VECTOR(31 downto 0);
   signal ALUResult                          : STD_ULOGIC_VECTOR(31 downto 0);
+  signal minValue                           : STD_ULOGIC_VECTOR(31 downto 0);
   signal isJalR                             : STD_ULOGIC;
 begin
   -- next PC and extend logic
@@ -109,10 +114,10 @@ begin
   -- register file and memory logic
   imem: instruction_memory  generic map (TEXT_SEGMENT) port map(reset, PC, Instr);
   dmem: data_memory         generic map (DATA_SEGMENT) port map(clk, reset, MemWrite, ALUResult, WriteData, ReadData, ram_dmem);
-  rf  : register_file       generic map (REGISTERS)    port map(clk, reset, Instr(19 downto 15), Instr(24 downto 20), Instr(11 downto 7), RegWrite, Result, SrcA, WriteData, ram_regs);
+  rf  : register_file       generic map (REGISTERS)    port map(clk, reset,allowCustomWrite , Instr(31 downto 30), Instr(19 downto 15), Instr(24 downto 20), Instr(11 downto 7),Instr(29 downto 25) ,RegWrite, Result, minValue, SrcA, WriteData, ram_regs);
     
   -- ALU logic
   srcbmux   :  mux_2 port map(WriteData, ImmExt, ALUSrc, SrcB);
-  mainalu   :  alu   port map(SrcA, SrcB,ALUControl, ALUResult, Zero, AluSign);
+  mainalu   :  alu   port map(SrcA, SrcB,ALUControl, ALUResult, minValue, Zero, AluSign);
   resultmux :  mux_3 port map(ALUResult, ReadData, PCPlus4, ResultSrc, Result);
 end;

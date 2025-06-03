@@ -25,6 +25,7 @@ package pkg_riscv_sc is
   constant ALU_CTRL_AND   : std_ulogic_vector(ALU_CTRL_SIZE-1 downto 0) := "010";
   constant ALU_CTRL_OR    : std_ulogic_vector(ALU_CTRL_SIZE-1 downto 0) := "011";
   constant ALU_CTRL_SLT   : std_ulogic_vector(ALU_CTRL_SIZE-1 downto 0) := "101";
+  constant ALU_MIN_MAX    : std_ulogic_vector(ALU_CTRL_SIZE-1 downto 0) := "111"; -- MSB muss 1 sein, damit man a - b rechnen kann
   constant ALU_CTRL_UKNWN : std_ulogic_vector(ALU_CTRL_SIZE-1 downto 0) := "---";
 
 

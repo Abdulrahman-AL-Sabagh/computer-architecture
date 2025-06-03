@@ -7,6 +7,7 @@ entity alu_decoder is
        funct3     : in  STD_ULOGIC_VECTOR(2 downto 0);
        funct7_5   : in  STD_ULOGIC;
        ALUOp      : in  STD_ULOGIC_VECTOR(1 downto 0);
+       cInstr     : in  STD_ULOGIC;
        ALUControl : out STD_ULOGIC_VECTOR(ALU_CTRL_SIZE-1 downto 0));
 end;
 
@@ -20,7 +21,9 @@ begin
         ALUControl <= ALU_CTRL_SUB; -- subtraction
       when "10" => 
         case funct3 is           -- R-type or I-type ALU
-          when "000" =>  if (funct7_5 and op_5) = '1' then
+          when "000" =>  if cInstr = '1' then
+                            ALUControl <= ALU_MIN_MAX;
+                          elsif (funct7_5 and op_5) = '1' then
                             ALUControl <= ALU_CTRL_SUB; -- sub
                           else
                             ALUControl <= ALU_CTRL_ADD; -- add, addi

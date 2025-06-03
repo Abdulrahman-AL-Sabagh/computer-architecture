@@ -108,11 +108,15 @@ architecture struct of ICS_EDU_RV32I_SC is
           PCSrc, ALUSrc, PcAdderSrcB   : out STD_ULOGIC;
           RegWrite        : out STD_ULOGIC;
           ImmSrc          : out STD_ULOGIC_VECTOR(IMM_SRC_SIZE-1 downto 0);
-          ALUControl      : out STD_ULOGIC_VECTOR(ALU_CTRL_SIZE-1 downto 0));
+          ALUControl      : out STD_ULOGIC_VECTOR(ALU_CTRL_SIZE-1 downto 0);
+          allowCustomWrite : out STD_ULOGIC
+          );
   end component;
   component datapath
     generic (TEXT_SEGMENT     : string; DATA_SEGMENT: string; REGISTERS: string);
     port    ( clk, reset      : in  STD_ULOGIC;
+              allowCustomWrite: in STD_ULOGIC;
+
               ResultSrc       : in  STD_ULOGIC_VECTOR(1  downto 0);
               PCSrc, ALUSrc   : in  STD_ULOGIC;
               RegWrite        : in  STD_ULOGIC;
@@ -133,9 +137,10 @@ architecture struct of ICS_EDU_RV32I_SC is
   signal ImmSrc                                 : STD_ULOGIC_VECTOR(IMM_SRC_SIZE-1 downto 0);
   signal ALUControl                             : STD_ULOGIC_VECTOR(ALU_CTRL_SIZE-1 downto 0);
   signal PcAdderMuxEnble                        : STD_ULOGIC;
+  signal isCustomInstrEnabled                   : STD_ULOGIC;
 begin
 
-  c: control_unit port map(Instr(6 downto 0), Instr(14 downto 12), Instr(30), Zero,AluSign ,ResultSrc, MemWrite, PCSrc, ALUSrc, PcAdderMuxEnble ,RegWrite, ImmSrc, ALUControl);
-  dp: datapath generic map (TEXT_SEGMENT, DATA_SEGMENT, REGISTERS) port map(clk, reset, ResultSrc, PCSrc, ALUSrc, RegWrite, MemWrite, ImmSrc, ALUControl, PcAdderMuxEnble ,Zero, AluSign,Instr, ram_regs, ram_dmem);
+  c: control_unit port map(Instr(6 downto 0), Instr(14 downto 12), Instr(30), Zero,AluSign ,ResultSrc, MemWrite, PCSrc, ALUSrc, PcAdderMuxEnble ,RegWrite, ImmSrc, ALUControl, isCustomInstrEnabled);
+  dp: datapath generic map (TEXT_SEGMENT, DATA_SEGMENT, REGISTERS) port map(clk, reset, isCustomInstrEnabled ,ResultSrc, PCSrc, ALUSrc, RegWrite, MemWrite, ImmSrc, ALUControl, PcAdderMuxEnble ,Zero, AluSign,Instr, ram_regs, ram_dmem);
 
 end;

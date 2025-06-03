@@ -7,12 +7,14 @@ entity alu is
   port(a, b       : in  STD_ULOGIC_VECTOR(31 downto 0);
        ALUControl : in  STD_ULOGIC_VECTOR(ALU_CTRL_SIZE-1  downto 0);
        ALUResult  : out STD_ULOGIC_VECTOR(31 downto 0);
+       minResult  : out STD_ULOGIC_VECTOR(31 downto 0);
        Zero, ResultSign       : out STD_ULOGIC
        );
 end;
 
 architecture bhv of alu is
   signal sum :          STD_ULOGIC_VECTOR(31 downto 0);
+  signal minValue:      STD_ULOGIC_VECTOR(31 downto 0);
 begin
   sum <= std_ulogic_vector(unsigned(a) + unsigned(b)) when Alucontrol(0)='0' else  -- a + b
          std_ulogic_vector(unsigned(a) + unsigned(not(b)) + 1);                    -- a + (-b)
@@ -22,10 +24,13 @@ begin
       when ALU_CTRL_AND                   => ALUResult <= a and b;
       when ALU_CTRL_OR                    => ALUResult <= a or b;
       when ALU_CTRL_SLT                   => ALUResult <= (0 => sum(31), others => '0');
+      when ALU_MIN_MAX                    => 
+              ALUResult <= a when sum(31) = '0' else b;
+              minValue <= b when sum(31) = '0' else a;
       when others                         => ALUResult <= (others => 'X');
     end case;
   end process;
-
+  minResult <= minValue when ALUControl = ALU_MIN_MAX  else (others => 'X');
   Zero      <= '1' when ALUResult = X"00000000" else '0';
   ResultSign      <= sum(31);
 end;

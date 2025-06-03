@@ -1,49 +1,49 @@
 v 4
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "tb/testbench.vhdl" "3f59d21713f3d7040ef9889dded329e12233e9a8" "20250527194206.703":
-  entity testbench at 1( 0) + 0 on 1577;
-  architecture tb of testbench at 12( 300) + 0 on 1578;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/register_file.vhdl" "c9a2df06c698026b00c10983e13943c1151c3084" "20250527194206.701":
-  entity register_file at 1( 0) + 0 on 1575;
-  architecture bhv of register_file at 19( 558) + 0 on 1576;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/mux_3.vhdl" "9775f1d90d9ce89649989515dd591a0707b001b9" "20250527194206.700":
-  entity mux_3 at 1( 0) + 0 on 1573;
-  architecture bhv of mux_3 at 12( 333) + 0 on 1574;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/mux_2.vhdl" "69793315f6975352e28d294f116fa504d34ada9a" "20250527194206.699":
-  entity mux_2 at 1( 0) + 0 on 1571;
-  architecture bhv of mux_2 at 10( 203) + 0 on 1572;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/main_decoder.vhdl" "442e0a31f13314d220489010b76672fdcf35a17a" "20250527194206.699":
-  entity main_decoder at 1( 0) + 0 on 1569;
-  architecture bhv of main_decoder at 16( 511) + 0 on 1570;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/instruction_memory.vhdl" "fe6940c1faa7a6ea8a439d5b5b0a4ed2eae9314d" "20250527194206.698":
-  entity instruction_memory at 1( 0) + 0 on 1567;
-  architecture bhv of instruction_memory at 15( 386) + 0 on 1568;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/extend.vhdl" "890ef5b9c55c5317dd35cb768af75763e809a3c3" "20250527194206.697":
-  entity extend at 1( 0) + 0 on 1565;
-  architecture bhv of extend at 11( 283) + 0 on 1566;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/datapath.vhdl" "97695b55353fe4662e3ed66e1fa4588a41694171" "20250527194206.696":
-  entity datapath at 1( 0) + 0 on 1563;
-  architecture struct of datapath at 24( 923) + 0 on 1564;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/data_memory.vhdl" "13cdbf05e40e671af455027a65ea6cbade3f93a9" "20250527194206.694":
-  entity data_memory at 1( 0) + 0 on 1561;
-  architecture bhv of data_memory at 15( 407) + 0 on 1562;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/d_ff.vhdl" "703590a3c83e55006ca7b040ca49fdbfed45bf04" "20250527194206.693":
-  entity d_ff at 1( 0) + 0 on 1559;
-  architecture bhv of d_ff at 12( 300) + 0 on 1560;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/control_unit.vhdl" "da978ff752ecc025d2815624a00e8e7c9d182f3a" "20250527194206.691":
-  entity control_unit at 1( 0) + 0 on 1557;
-  architecture struct of control_unit at 19( 701) + 0 on 1558;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/alu_decoder.vhdl" "21ff9d3cd52fa94158e0ca8641fb176dca016002" "20250527194206.690":
-  entity alu_decoder at 1( 0) + 0 on 1555;
-  architecture bhv of alu_decoder at 13( 351) + 0 on 1556;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/alu.vhdl" "17d82d1eecd314cbc64ad3b99cb56adebf2d360d" "20250527194206.689":
-  entity alu at 1( 0) + 0 on 1553;
-  architecture bhv of alu at 14( 356) + 0 on 1554;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/adder.vhdl" "39379918487d3254d8fa2b0af027cd7317594439" "20250527194206.688":
-  entity adder at 1( 0) + 0 on 1551;
-  architecture bhv of adder at 12( 245) + 0 on 1552;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/ICS-EDU-RV32I-SC.vhdl" "a24fe1554685842b5bb6bce2300cd7157a7a4c59" "20250527194206.688":
-  entity ics_edu_rv32i_sc at 86( 2855) + 0 on 1549;
-  architecture struct of ics_edu_rv32i_sc at 99( 3151) + 0 on 1550;
-file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "pkg/pkg_riscv_sc.vhdl" "ab98f89ffc1ce26238f4876464a1df5098375e97" "20250527194206.687":
-  package pkg_riscv_sc at 2( 1) + 0 on 1547 body;
-  package body pkg_riscv_sc at 50( 2370) + 0 on 1548;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "pkg/pkg_riscv_sc.vhdl" "7e282c4fc03149f5ce467bb04021a8342850ffb0" "20250603212405.065":
+  package pkg_riscv_sc at 2( 1) + 0 on 171 body;
+  package body pkg_riscv_sc at 51( 2501) + 0 on 172;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/ICS-EDU-RV32I-SC.vhdl" "280a5ff5de462431e0a3d73c2763e6d6c0a2543f" "20250603212405.066":
+  entity ics_edu_rv32i_sc at 86( 2855) + 0 on 173;
+  architecture struct of ics_edu_rv32i_sc at 99( 3151) + 0 on 174;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/adder.vhdl" "39379918487d3254d8fa2b0af027cd7317594439" "20250603212405.067":
+  entity adder at 1( 0) + 0 on 175;
+  architecture bhv of adder at 12( 245) + 0 on 176;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/alu.vhdl" "6e3d735a63b171abed7c5645112be59cc7391c55" "20250603212405.069":
+  entity alu at 1( 0) + 0 on 177;
+  architecture bhv of alu at 15( 412) + 0 on 178;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/alu_decoder.vhdl" "8bb09cb83f9baa3d0128437e52169601230ce2bc" "20250603212405.069":
+  entity alu_decoder at 1( 0) + 0 on 179;
+  architecture bhv of alu_decoder at 14( 387) + 0 on 180;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/control_unit.vhdl" "09697a139534c05f270fb218619d5d07448026c8" "20250603212405.070":
+  entity control_unit at 1( 0) + 0 on 181;
+  architecture struct of control_unit at 21( 751) + 0 on 182;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/d_ff.vhdl" "703590a3c83e55006ca7b040ca49fdbfed45bf04" "20250603212405.072":
+  entity d_ff at 1( 0) + 0 on 183;
+  architecture bhv of d_ff at 12( 300) + 0 on 184;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/data_memory.vhdl" "13cdbf05e40e671af455027a65ea6cbade3f93a9" "20250603212405.074":
+  entity data_memory at 1( 0) + 0 on 185;
+  architecture bhv of data_memory at 15( 407) + 0 on 186;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/datapath.vhdl" "c843d5b167ad883459c15c04d2d131110d3494ed" "20250603212405.075":
+  entity datapath at 1( 0) + 0 on 187;
+  architecture struct of datapath at 25( 969) + 0 on 188;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/extend.vhdl" "890ef5b9c55c5317dd35cb768af75763e809a3c3" "20250603212405.076":
+  entity extend at 1( 0) + 0 on 189;
+  architecture bhv of extend at 11( 283) + 0 on 190;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/instruction_memory.vhdl" "fe6940c1faa7a6ea8a439d5b5b0a4ed2eae9314d" "20250603212405.078":
+  entity instruction_memory at 1( 0) + 0 on 191;
+  architecture bhv of instruction_memory at 15( 386) + 0 on 192;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/main_decoder.vhdl" "61389f945d3723da71923b84b6e4f8e028579f30" "20250603212405.078":
+  entity main_decoder at 1( 0) + 0 on 193;
+  architecture bhv of main_decoder at 16( 511) + 0 on 194;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/mux_2.vhdl" "69793315f6975352e28d294f116fa504d34ada9a" "20250603212405.079":
+  entity mux_2 at 1( 0) + 0 on 195;
+  architecture bhv of mux_2 at 10( 203) + 0 on 196;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/mux_3.vhdl" "9775f1d90d9ce89649989515dd591a0707b001b9" "20250603212405.079":
+  entity mux_3 at 1( 0) + 0 on 197;
+  architecture bhv of mux_3 at 12( 333) + 0 on 198;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "rtl/register_file.vhdl" "d642fbeb49a62f824bbc1e05c77f6f01e0f357af" "20250603212405.081":
+  entity register_file at 1( 0) + 0 on 199;
+  architecture bhv of register_file at 21( 669) + 0 on 200;
+file "/home/vagrant/Desktop/computer-architecture/ics-rv32i-sc-template/template/" "tb/testbench.vhdl" "3f59d21713f3d7040ef9889dded329e12233e9a8" "20250603212405.083":
+  entity testbench at 1( 0) + 0 on 201;
+  architecture tb of testbench at 12( 300) + 0 on 202;

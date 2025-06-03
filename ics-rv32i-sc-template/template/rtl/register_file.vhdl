@@ -9,9 +9,11 @@ use work.pkg_riscv_sc.all;
 entity register_file is -- three-port register file
   generic ( REGISTERS : string);
   port    ( clk, reset: in  STD_ULOGIC;
-            A1, A2, A3: in  STD_ULOGIC_VECTOR(4  downto 0);
+            allowCustomWrite: in STD_ULOGIC;
+            f2:         in STD_ULOGIC_VECTOR(1 downto 0);
+            A1, A2, A3, A4: in  STD_ULOGIC_VECTOR(4  downto 0);
             WE3       : in  STD_ULOGIC;
-            WD3       : in  STD_ULOGIC_VECTOR(31 downto 0);
+            WD3,WD4       : in  STD_ULOGIC_VECTOR(31 downto 0);
             RD1, RD2  : out STD_ULOGIC_VECTOR(31 downto 0);
             ram_regs  : out regs_ram);
 end;
@@ -41,11 +43,27 @@ begin
     if reset = '1' then
       ram_regs <= init_regs_ram;
     else
-      if rising_edge(clk) then
-        if WE3='1' and A3 /= "00000" then ram_regs(to_integer(unsigned(A3))) <= WD3;
-        end if;
+        if rising_edge(clk) and WE3 = '1'  then
+            if allowCustomWrite then
+                if f2 = "01" then
+                  ram_regs(to_integer(unsigned(A3))) <= WD4;
+                  ram_regs(to_integer(unsigned(A4))) <= WD3;    
+                elsif f2 = "10" then
+                  ram_regs(to_integer(unsigned(A3))) <= WD3;
+                  ram_regs(to_integer(unsigned(A4))) <= WD4;
+                end if;
+            else 
+              ram_regs(to_integer(unsigned(A3))) <= WD3;  
+            end if;
       end if;
     end if;
+ -- if WE3 = '1' and (f2 = "10" or f2 = "01") then
+   --   if WD4 /= "XXXXXXXX" then
+     --     ram_regs(to_integer(unsigned(A3))) <= WD3 when f2 = "10" else WD4;
+       --   ram_regs(to_integer(unsigned(A4))) <= WD4 when f2 = "01" else WD3;
+--      end if;
+ --   end if;
+
   end process;
 
   process(A1, A2, ram_regs) begin
@@ -60,5 +78,7 @@ begin
       end if;
     end if;
   end process;
+
+
   
 end;
